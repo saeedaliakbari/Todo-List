@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: "Yekan";
+  direction: rtl;
+}
+
+:root {
+  --primary-color: #2f3a8f;
+  --secondary-color: #fe7e6d;
+  --main-white: #fff;
+  --main-black: #222;
+  --main-gray: #fe7e6d;
+  --main-spacing: 0.1rem;
+  --main-transition: all 0.3 linear;
+  --main-red: #db2727;
+  --body-color: #feece9;
+}
+
+body {
+  background-color: var(--body-color);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+header h1 {
+  padding: 2rem 0;
+  color: var(--primary-color);
+  text-align: center;
+}
+.container {
+  width: 50%;
+}
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-container form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.todo-input {
+  font-size: 1.2rem;
+  flex: 1;
+  padding: 0.15rem;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+.fa-plus-circle {
+  color: var(--primary-color);
+  transition: var(--main-transition);
+  padding: 0.5rem;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+.fa-plus-circle:hover {
+  color: var(--body-color);
+  background-color: var(--primary-color);
+}
+
+.filter-todos {
+  border: none;
+  outline: none;
+  padding: 0.25rem;
+  margin: 0 0.5rem;
+}
+
+.todo {
+  background-color: var(--main-gray);
+  margin: 0.5rem 0;
+  width: 100%;
+  padding: 0.25rem;
+  border-radius: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo span {
+  flex: 1;
+  width: 100%;
+  color: var(--main-black);
+}
+
+.todo i {
+  padding: 0.4rem;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.btn-add {
+  border: none;
+  outline: none;
+  background-color: var(--body-color);
+  padding: 0.5rem;
+  cursor: pointer;
+}
