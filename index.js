@@ -17,7 +17,7 @@ function addTodo(e) {
   <i class="fas fa-trash"></i>
   <i class="far fa-check-square"></i>`;
   divTodoContainer.appendChild(newDiv);
-  saveToDb(iptTask.value);
+  saveToDb(newDiv.innerHTML);
   iptTask.value = "";
 }
 
@@ -30,12 +30,16 @@ function deleteTodo(e) {
 function checkandRemove(e) {
   const classOfTarget = [...e.target.classList];
   if (classOfTarget[1] === "fa-edit") {
-    console.log("edit");
+    removeFromDb(e.target.parentElement);
+    e.target.parentElement.remove();
+    iptTask.value = e.target.parentElement.querySelector("span").textContent;
   } else if (classOfTarget[1] === "fa-trash") {
-    removeFromDb(e.target);
+    removeFromDb(e.target.parentElement);
     e.target.parentElement.remove();
   } else if (classOfTarget[1] === "fa-check-square") {
+    removeFromDb(e.target.parentElement);
     e.target.parentElement.querySelector("span").classList.toggle("complete");
+    saveToDb(e.target.parentElement.innerHTML);
   }
 }
 
@@ -54,20 +58,16 @@ function loadDb() {
   dbData.forEach((element) => {
     const newDiv = document.createElement("div");
     newDiv.classList.add("todo");
-    newDiv.innerHTML = `<span> ${element} </span>
-  <i class="fas fa-edit"></i>
-  <i class="fas fa-trash"></i>
-  <i class="far fa-check-square"></i>`;
+    newDiv.innerHTML = element;
     divTodoContainer.appendChild(newDiv);
   });
 }
 
 function removeFromDb(todo) {
-  const valueTodo = todo.parentElement.querySelector("span").textContent;
   const dbData = localStorage.getItem("todos")
     ? JSON.parse(localStorage.getItem("todos"))
     : [];
-  const filterTodos = dbData.filter((element) => element != valueTodo.trim());
+  const filterTodos = dbData.filter((element) => element != todo.innerHTML);
   localStorage.setItem("todos", JSON.stringify(filterTodos));
 }
 
