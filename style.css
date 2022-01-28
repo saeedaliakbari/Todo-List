@@ -25,20 +25,24 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 100vw;
 }
-
+header {
+  width: 100vw;
+}
 header h1 {
   padding: 2rem 0;
   color: var(--primary-color);
   text-align: center;
 }
-.container {
-  width: 50%;
-}
+/* .container {
+  padding: 0 1rem;
+} */
 .form-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 1rem;
 }
 .form-container form {
   flex: 1;
@@ -46,21 +50,31 @@ header h1 {
   align-items: center;
   justify-content: space-between;
 }
-
+.todo-container {
+  margin: 1rem;
+}
 .todo-input {
   font-size: 1.2rem;
   flex: 1;
-  padding: 0.15rem;
+  padding: 0.15rem 0.5rem;
   border: none;
   outline: none;
   border-radius: 5px;
 }
-.fa-plus-circle {
+
+.todo-input:focus {
+  border: 2px solid var(--primary-color);
+}
+
+.btn-add i {
   color: var(--primary-color);
   transition: var(--main-transition);
   padding: 0.5rem;
   border-radius: 10px;
   font-size: 1.2rem;
+}
+.btn-add .fa-check-square {
+  display: none;
 }
 .fa-plus-circle:hover {
   color: var(--body-color);

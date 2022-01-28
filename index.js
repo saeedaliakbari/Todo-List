@@ -2,6 +2,8 @@ const btnAdd = document.querySelector(".btn-add");
 const iptTask = document.querySelector(".todo-input");
 const divTodoContainer = document.querySelector(".todo-container");
 const dropDownSelect = document.querySelector(".filter-todos");
+const iconEdit = document.querySelector(".btn-add .fa-check-square");
+const iconAdd = document.querySelector(".btn-add .fa-plus-circle");
 
 btnAdd.addEventListener("click", addTodo);
 divTodoContainer.addEventListener("click", checkandRemove);
@@ -9,6 +11,8 @@ document.addEventListener("DOMContentLoaded", loadDb);
 dropDownSelect.addEventListener("click", filterTodos);
 
 function addTodo(e) {
+  iconEdit.style.display = "none";
+  iconAdd.style.display = "flex";
   e.preventDefault();
   const newDiv = document.createElement("div");
   newDiv.classList.add("todo");
@@ -30,6 +34,8 @@ function deleteTodo(e) {
 function checkandRemove(e) {
   const classOfTarget = [...e.target.classList];
   if (classOfTarget[1] === "fa-edit") {
+    iconEdit.style.display = "flex";
+    iconAdd.style.display = "none";
     removeFromDb(e.target.parentElement);
     e.target.parentElement.remove();
     iptTask.value = e.target.parentElement.querySelector("span").textContent;
