@@ -28,7 +28,7 @@ body {
   width: 100vw;
 }
 header {
-  width: 100vw;
+  width: 70%;
 }
 header h1 {
   padding: 2rem 0;
@@ -43,6 +43,7 @@ header h1 {
   justify-content: space-between;
   align-items: center;
   margin: 1rem;
+  width: 60%;
 }
 .form-container form {
   flex: 1;
@@ -52,6 +53,7 @@ header h1 {
 }
 .todo-container {
   margin: 1rem;
+  width: 60%;
 }
 .todo-input {
   font-size: 1.2rem;
@@ -122,4 +124,26 @@ header h1 {
 .complete {
   text-decoration: line-through;
   opacity: 0.5;
+}
+
+@media screen and (max-width: 450px) {
+  .form-container {
+    flex-direction: column;
+  }
+  .form-container form {
+    width: 100%;
+  }
+  .select,
+  .filter-todos {
+    width: 80%;
+  }
+  header {
+    width: 100%;
+  }
+  .form-container {
+    width: 100%;
+  }
+  .todo-container {
+    width: 100%;
+  }
 }
