@@ -1,149 +1,148 @@
+@import url('https://fonts.cdnfonts.com/css/iranyekan');
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  list-style: none;
-  font-family: "Yekan";
-  direction: rtl;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IRANYekan', sans-serif;
+    list-style: none;
 }
 
 :root {
-  --primary-color: #2f3a8f;
-  --secondary-color: #fe7e6d;
-  --main-white: #fff;
-  --main-black: #222;
-  --main-gray: #fe7e6d;
-  --main-spacing: 0.1rem;
-  --main-transition: all 0.3 linear;
-  --main-red: #db2727;
-  --body-color: #feece9;
+    --primary-color: #6d28d9;
+    --secondary-color: #ede9fe;
+    --mainWhite: #fff;
+    --mainBlack: #000;
+    --mainGray: #7c7c7c;
+    --mainSpacing: 0.1rem;
+    --mainTransition: all 0.3s linear;
+    --mainRed: #db2777;
+    --bodyColor: #f6f6f6;
 }
 
 body {
-  background-color: var(--body-color);
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 100vw;
+    font-family: 'IRANYekan', sans-serif;
+    color: var(--mainBlack);
+    background-color: var(--bodyColor);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 header {
-  width: 70%;
+    min-height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-header h1 {
-  padding: 2rem 0;
-  color: var(--primary-color);
-  text-align: center;
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
-/* .container {
-  padding: 0 1rem;
-} */
+
 .form-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1rem;
-  width: 60%;
+    display: flex;
 }
-.form-container form {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
+form {
+    background-color: var(--mainWhite);
+    width: 25rem;
+    display: flex;
+    justify-content: space-between;
 }
+
+form input {
+    flex: 1;
+}
+
+form input,
+form button {
+    background-color: var(--mainWhite);
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: .25rem;
+}
+
+form button {
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: var(--mainTransition);
+}
+
+form button:hover {
+    background-color: var(--primary-color);
+    color: var(--mainWhite);
+}
+
 .todo-container {
-  margin: 1rem;
-  width: 60%;
-}
-.todo-input {
-  font-size: 1.2rem;
-  flex: 1;
-  padding: 0.15rem 0.5rem;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-}
-
-.todo-input:focus {
-  border: 2px solid var(--primary-color);
-}
-
-.btn-add i {
-  color: var(--primary-color);
-  transition: var(--main-transition);
-  padding: 0.5rem;
-  border-radius: 10px;
-  font-size: 1.2rem;
-}
-.btn-add .fa-check-square {
-  display: none;
-}
-.fa-plus-circle:hover {
-  color: var(--body-color);
-  background-color: var(--primary-color);
-}
-
-.filter-todos {
-  border: none;
-  outline: none;
-  padding: 0.25rem;
-  margin: 0 0.5rem;
+    width: 25rem;
 }
 
 .todo {
-  background-color: var(--main-gray);
-  margin: 0.5rem 0;
-  width: 100%;
-  padding: 0.25rem;
-  border-radius: 0.4rem;
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.3rem 0;
+    transition: var(--mainTransition);
+}
+
+.todo li {
+    flex: 1;
+    padding: 0 0.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
 }
 
 .todo span {
-  flex: 1;
-  width: 100%;
-  color: var(--main-black);
+    display: block;
+    font-size: 1rem;
+    padding: 0.3rem;
+    cursor: pointer;
 }
 
-.todo i {
-  padding: 0.4rem;
-  color: var(--primary-color);
-  font-size: 1.2rem;
-  cursor: pointer;
+.fa-trash-alt {
+    color: var(--mainRed);
 }
 
-.btn-add {
-  border: none;
-  outline: none;
-  background-color: var(--body-color);
-  padding: 0.5rem;
-  cursor: pointer;
+.fa-check-square {
+    color: var(--primary-color);
 }
 
-.complete {
-  text-decoration: line-through;
-  opacity: 0.5;
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
 }
 
-@media screen and (max-width: 450px) {
-  .form-container {
-    flex-direction: column;
-  }
-  .form-container form {
+select {
+    appearance: none;
+    outline: none;
+    border: none;
+    color: var(--primary-color);
+    padding: 0.5rem;
     width: 100%;
-  }
-  .select,
-  .filter-todos {
-    width: 80%;
-  }
-  header {
-    width: 100%;
-  }
-  .form-container {
-    width: 100%;
-  }
-  .todo-container {
-    width: 100%;
-  }
+}
+
+.select {
+    margin-left: 0.5rem;
+    background-color: var(--mainWhite);
+    cursor: pointer;
+    width: 10rem;
+    font-weight: bold;
+    position: relative;
+}
+
+.select::after {
+    content: "\25BC";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    color: var(--primary-color);
+    pointer-events: none;
+    
 }

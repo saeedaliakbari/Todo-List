@@ -1,94 +1,97 @@
-const btnAdd = document.querySelector(".btn-add");
-const iptTask = document.querySelector(".todo-input");
-const divTodoContainer = document.querySelector(".todo-container");
-const dropDownSelect = document.querySelector(".filter-todos");
-const iconEdit = document.querySelector(".btn-add .fa-check-square");
-const iconAdd = document.querySelector(".btn-add .fa-plus-circle");
-
-btnAdd.addEventListener("click", addTodo);
-divTodoContainer.addEventListener("click", checkandRemove);
-document.addEventListener("DOMContentLoaded", loadDb);
-dropDownSelect.addEventListener("click", filterTodos);
-
+//selector
+const todoInput = document.querySelector(".todo-input");
+const todoAddBtn = document.querySelector(".todo-button");
+const todoList = document.querySelector(".todo-container");
+const todoFilter = document.querySelector(".filter-todos");
+//event listener
+todoAddBtn.addEventListener("click", addTodo);
+todoList.addEventListener("click", checkRemove);
+todoFilter.addEventListener("click", filterTodos);
+document.addEventListener("DOMContentLoaded", getLocalTodos);
+//functions
 function addTodo(e) {
-  iconEdit.style.display = "none";
-  iconAdd.style.display = "flex";
   e.preventDefault();
-  const newDiv = document.createElement("div");
-  newDiv.classList.add("todo");
-  newDiv.innerHTML = `<span> ${iptTask.value} </span>
-  <i class="fas fa-edit"></i>
-  <i class="fas fa-trash"></i>
-  <i class="far fa-check-square"></i>`;
-  divTodoContainer.appendChild(newDiv);
-  saveToDb(newDiv.innerHTML);
-  iptTask.value = "";
+  //   console.log(e);
+  const todoDiv = document.createElement("div");
+  todoDiv.classList.add("todo");
+  const newTodo = `<li>${todoInput.value}</li>
+    <span><i class="fa fa-trash-alt"></i></span>
+    <span><i class="fa fa-check-square"></i></span>`;
+  todoDiv.innerHTML = newTodo;
+  todoList.appendChild(todoDiv);
+  saveLocalTodos(todoInput.value);
+  todoInput.value = "";
 }
 
-function deleteTodo(e) {
-  console.log(e.target.parentElement);
-  const divParent = e.target.parentElement;
-  divParent.remove();
-}
-
-function checkandRemove(e) {
-  const classOfTarget = [...e.target.classList];
-  if (classOfTarget[1] === "fa-edit") {
-    iconEdit.style.display = "flex";
-    iconAdd.style.display = "none";
-    removeFromDb(e.target.parentElement);
-    e.target.parentElement.remove();
-    iptTask.value = e.target.parentElement.querySelector("span").textContent;
-  } else if (classOfTarget[1] === "fa-trash") {
-    removeFromDb(e.target.parentElement);
-    e.target.parentElement.remove();
-  } else if (classOfTarget[1] === "fa-check-square") {
-    removeFromDb(e.target.parentElement);
-    e.target.parentElement.querySelector("span").classList.toggle("complete");
-    saveToDb(e.target.parentElement.innerHTML);
+function checkRemove(e) {
+  const listClassTodo = [...e.target.classList];
+  const item = e.target;
+  if (listClassTodo[1] === "fa-trash-alt") {
+    const thisTodo = item.parentElement.parentElement;
+    rmeoveLocalTodos(thisTodo);
+    thisTodo.remove();
+  } else if (listClassTodo[1] === "fa-check-square") {
+    const thisTodo = item.parentElement.parentElement;
+    thisTodo.classList.toggle("completed");
   }
 }
 
-function saveToDb(newItem) {
-  const dbData = localStorage.getItem("todos")
-    ? JSON.parse(localStorage.getItem("todos"))
-    : [];
-  dbData.push(newItem);
-  localStorage.setItem("todos", JSON.stringify(dbData));
-}
-
-function loadDb() {
-  const dbData = localStorage.getItem("todos")
-    ? JSON.parse(localStorage.getItem("todos"))
-    : [];
-  dbData.forEach((element) => {
-    const newDiv = document.createElement("div");
-    newDiv.classList.add("todo");
-    newDiv.innerHTML = element;
-    divTodoContainer.appendChild(newDiv);
-  });
-}
-
-function removeFromDb(todo) {
-  const dbData = localStorage.getItem("todos")
-    ? JSON.parse(localStorage.getItem("todos"))
-    : [];
-  const filterTodos = dbData.filter((element) => element != todo.innerHTML);
-  localStorage.setItem("todos", JSON.stringify(filterTodos));
-}
-
 function filterTodos(e) {
-  const todos = [...divTodoContainer.childNodes];
-  todos.forEach((element) => {
-    const spanIn = element.querySelector("span").classList;
-    if (e.target.value == 1) {
-      element.style.display = "flex";
-    } else if (e.target.value == 2) {
-      if (spanIn[0] == "complete") element.style.display = "flex";
-      else element.style.display = "none";
-    } else if (e.target.value == 3) {
-      if (spanIn[0] == "complete") element.style.display = "none";
-      else element.style.display = "flex";
+  const todoArray = [...todoList.childNodes];
+  console.log(todoArray);
+  todoArray.forEach((todo) => {
+    switch (e.target.value) {
+      case "1":
+        todo.style.display = "flex";
+        break;
+      case "2":
+        if (todo.classList.contains("completed")) {
+          todo.style.display = "flex";
+        } else {
+          todo.style.display = "none";
+        }
+        break;
+      case "3":
+        if (!todo.classList.contains("completed")) {
+          todo.style.display = "flex";
+        } else {
+          todo.style.display = "none";
+        }
+        break;
     }
   });
+}
+
+function saveLocalTodos(todo) {
+  // console.log(localStorage.getItem("todos"));
+  let savedTodos = localStorage.getItem("todos")
+    ? JSON.parse(localStorage.getItem("todos"))
+    : [];
+  savedTodos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(savedTodos));
+}
+
+function getLocalTodos() {
+  let savedTodos = localStorage.getItem("todos")
+    ? JSON.parse(localStorage.getItem("todos"))
+    : [];
+  savedTodos.forEach((todo) => {
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+    const newTodo = `<li>${todo}</li>
+      <span><i class="fa fa-trash-alt"></i></span>
+      <span><i class="fa fa-check-square"></i></span>`;
+    todoDiv.innerHTML = newTodo;
+    todoList.appendChild(todoDiv);
+  });
+}
+
+function rmeoveLocalTodos(todo) {
+  let savedTodos = localStorage.getItem("todos")
+    ? JSON.parse(localStorage.getItem("todos"))
+    : [];
+  const filterTodos = savedTodos.filter((t) => {
+    return t !== todo.children[0].innerText;
+  });
+  localStorage.setItem("todos", JSON.stringify(filterTodos));
 }
